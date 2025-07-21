@@ -1,10 +1,10 @@
 # Yahtzee CLI Game - Implementation To-Do List
 
 ## 1. Project Setup
-- [ ] Set up project structure and main entry point
-- [ ] Create initial files: `yahtzee.py`, `scorecard.py`, `dice.py`, `cli.py`, `utils.py`
-- [ ] Set up a `tests/` directory for test files
-- [ ] Add `pytest` to project requirements (if using a requirements file)
+- [x] Set up project structure and main entry point
+- [x] Create initial files: `yahtzee.py`, `scorecard.py`, `dice.py`, `cli.py`, `utils.py`
+- [x] Set up a `tests/` directory for test files
+- [x] Add `pytest` to project requirements (if using a requirements file)
 
 ## 2. Data Structures
 - [ ] Implement `Player` class
