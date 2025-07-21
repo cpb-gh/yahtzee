@@ -3,6 +3,7 @@ from scorecard import Scorecard, ALL_CATEGORIES
 from dice import Dice
 from cli import display_dice, prompt_dice_to_reroll, display_scorecard, prompt_category_choice
 from utils import is_valid_category, is_valid_dice_indices
+from collections import Counter
 
 class Player:
     def __init__(self, name):
@@ -47,8 +48,8 @@ class Game:
                     if player.scorecard.is_category_used(category):
                         print("Category already used. Choose another.")
                         continue
-                    # Calculate score (stub for now)
-                    score = calculate_score_stub(category, dice.get_values())
+                    # Calculate score (real logic)
+                    score = calculate_score(category, dice.get_values())
                     player.scorecard.set_score(category, score)
                     print(f"Scored {score} points in {category}.")
                     break
@@ -58,10 +59,53 @@ class Game:
             display_scorecard(player.scorecard)
             print(f"Total score: {player.scorecard.total_score()}")
 
-def calculate_score_stub(category, dice_values):
-    # TODO: Implement real scoring logic for each category
-    # For now, just return the sum of dice as a placeholder
-    return sum(dice_values)
+def calculate_score(category, dice_values):
+    counts = Counter(dice_values)
+    unique = sorted(set(dice_values))
+    if category == "Ones":
+        return dice_values.count(1) * 1
+    elif category == "Twos":
+        return dice_values.count(2) * 2
+    elif category == "Threes":
+        return dice_values.count(3) * 3
+    elif category == "Fours":
+        return dice_values.count(4) * 4
+    elif category == "Fives":
+        return dice_values.count(5) * 5
+    elif category == "Sixes":
+        return dice_values.count(6) * 6
+    elif category == "Three of a Kind":
+        if any(v >= 3 for v in counts.values()):
+            return sum(dice_values)
+        return 0
+    elif category == "Four of a Kind":
+        if any(v >= 4 for v in counts.values()):
+            return sum(dice_values)
+        return 0
+    elif category == "Full House":
+        if sorted(counts.values()) == [2, 3]:
+            return 25
+        return 0
+    elif category == "Small Straight":
+        # 4 sequential dice: 1-2-3-4, 2-3-4-5, 3-4-5-6
+        straights = [set([1,2,3,4]), set([2,3,4,5]), set([3,4,5,6])]
+        for straight in straights:
+            if straight.issubset(set(dice_values)):
+                return 30
+        return 0
+    elif category == "Large Straight":
+        # 5 sequential dice: 1-2-3-4-5, 2-3-4-5-6
+        if set([1,2,3,4,5]) == set(dice_values) or set([2,3,4,5,6]) == set(dice_values):
+            return 40
+        return 0
+    elif category == "Yahtzee":
+        if len(counts) == 1:
+            return 50
+        return 0
+    elif category == "Chance":
+        return sum(dice_values)
+    else:
+        return 0
 
 def main():
     print("Welcome to Yahtzee!")

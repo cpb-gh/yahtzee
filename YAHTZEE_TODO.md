@@ -14,23 +14,23 @@
 - [x] Implement `Game` class (single player, but extensible)
 
 ## 3. Game Logic
-- [ ] Implement dice rolling and re-rolling logic
-- [ ] Implement scoring logic for all categories
-- [ ] Implement scorecard updating and validation (category used only once)
-- [ ] Implement main game loop (13 rounds, per player)
+- [x] Implement dice rolling and re-rolling logic
+- [x] Implement scoring logic for all categories
+- [x] Implement scorecard updating and validation (category used only once)
+- [x] Implement main game loop (13 rounds, per player)
 
 ## 4. Command-Line Interface (CLI)
-- [ ] Implement CLI prompts for player name(s)
-- [ ] Implement CLI display for dice, scorecard, and categories
-- [ ] Implement CLI input for dice selection and category choice
-- [ ] Implement input validation and error handling
+- [x] Implement CLI prompts for player name(s)
+- [x] Implement CLI display for dice, scorecard, and categories
+- [x] Implement CLI input for dice selection and category choice
+- [x] Implement input validation and error handling
 - [ ] Implement end-of-game summary and results display
 
 ## 5. Testing
-- [ ] Write unit tests for `Player` class
-- [ ] Write unit tests for `Scorecard` class
-- [ ] Write unit tests for `Dice` class
-- [ ] Write unit tests for scoring logic
+- [x] Write unit tests for `Player` class
+- [x] Write unit tests for `Scorecard` class
+- [x] Write unit tests for `Dice` class
+- [x] Write unit tests for scoring logic
 - [ ] Write tests for CLI input validation (where possible)
 - [ ] Write integration tests for main game loop (optional)
 
