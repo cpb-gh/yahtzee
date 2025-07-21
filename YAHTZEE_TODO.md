@@ -7,11 +7,11 @@
 - [x] Add `pytest` to project requirements (if using a requirements file)
 
 ## 2. Data Structures
-- [ ] Implement `Player` class
-- [ ] Implement `Scorecard` class
-- [ ] Define Yahtzee categories (as constants or Enum)
-- [ ] Implement `Dice` class
-- [ ] Implement `Game` class (single player, but extensible)
+- [x] Implement `Player` class
+- [x] Implement `Scorecard` class
+- [x] Define Yahtzee categories (as constants or Enum)
+- [x] Implement `Dice` class
+- [x] Implement `Game` class (single player, but extensible)
 
 ## 3. Game Logic
 - [ ] Implement dice rolling and re-rolling logic
