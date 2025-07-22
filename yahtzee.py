@@ -41,8 +41,9 @@ class Game:
                 display_scorecard(player.scorecard)
                 available_categories = [cat for cat in ALL_CATEGORIES if not player.scorecard.is_category_used(cat)]
                 while True:
-                    category = prompt_category_choice(available_categories)
-                    if not is_valid_category(category):
+                    category_input = prompt_category_choice(available_categories)
+                    category = match_category_input(category_input, available_categories)
+                    if not category:
                         print("Invalid category. Try again.")
                         continue
                     if player.scorecard.is_category_used(category):
@@ -58,6 +59,15 @@ class Game:
             print(f"\nFinal scorecard for {player.name}:")
             display_scorecard(player.scorecard)
             print(f"Total score: {player.scorecard.total_score()}")
+
+def match_category_input(user_input, available_categories):
+    """
+    Return the matching category from available_categories (case-insensitive), or None if not found.
+    """
+    for cat in available_categories:
+        if cat.lower() == user_input.strip().lower():
+            return cat
+    return None
 
 def calculate_score(category, dice_values):
     counts = Counter(dice_values)

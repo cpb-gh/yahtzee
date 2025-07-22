@@ -2,7 +2,7 @@
 
 ALL_CATEGORIES = [
     "Ones", "Twos", "Threes", "Fours", "Fives", "Sixes",
-    "Three of a Kind", "Four of a Kind", "Full House",
+    "Three of a Kind", "Full House",
     "Four of a Kind", "Small Straight", "Large Straight",
     "Yahtzee", "Chance"
 ]
@@ -25,10 +25,7 @@ class Scorecard:
         return sum(self.scores[cat] for cat in UPPER_CATEGORIES if self.scores[cat] is not None)
 
     def has_upper_bonus(self):
-        # Only award bonus if all upper categories are filled
-        if all(self.scores[cat] is not None for cat in UPPER_CATEGORIES):
-            return self.upper_section_total() >= UPPER_BONUS_THRESHOLD
-        return False
+        return self.upper_section_total() >= UPPER_BONUS_THRESHOLD
 
     def total_score(self):
         total = sum(score for score in self.scores.values() if score is not None)

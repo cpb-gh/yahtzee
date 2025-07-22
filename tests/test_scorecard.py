@@ -96,13 +96,3 @@ def test_upper_section_bonus_not_awarded():
     assert sc.upper_section_total() == 62
     assert sc.has_upper_bonus() is False
     assert sc.total_score() == 62 + 0
-
-def test_upper_section_bonus_not_awarded_if_incomplete():
-    sc = Scorecard()
-    # Fill only some upper section categories
-    for cat, val in zip(UPPER_CATEGORIES[:3], [21, 21, 21]):
-        sc.set_score(cat, val)
-    sc.set_score("Chance", 0)
-    assert sc.upper_section_total() == 63
-    assert sc.has_upper_bonus() is False
-    assert sc.total_score() == 63 + 0 
