@@ -10,6 +10,10 @@ def display_scorecard(scorecard):
     print("Scorecard:")
     for category, score in scorecard.scores.items():
         print(f"  {category}: {score if score is not None else '-'}")
+    # Show upper section bonus
+    if hasattr(scorecard, 'has_upper_bonus') and hasattr(scorecard, 'upper_section_total'):
+        bonus = 35 if scorecard.has_upper_bonus() else 0
+        print(f"  Upper Section Bonus: {bonus} ({'AWARDED' if bonus else 'not awarded'})")
 
 def prompt_category_choice(available_categories):
     print(f"Available categories: {', '.join(available_categories)}")

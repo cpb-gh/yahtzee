@@ -7,6 +7,10 @@ ALL_CATEGORIES = [
     "Yahtzee", "Chance"
 ]
 
+UPPER_CATEGORIES = ["Ones", "Twos", "Threes", "Fours", "Fives", "Sixes"]
+UPPER_BONUS_THRESHOLD = 63
+UPPER_BONUS_SCORE = 35
+
 class Scorecard:
     def __init__(self):
         self.scores = {category: None for category in ALL_CATEGORIES}
@@ -17,5 +21,17 @@ class Scorecard:
     def set_score(self, category, score):
         self.scores[category] = score
 
+    def upper_section_total(self):
+        return sum(self.scores[cat] for cat in UPPER_CATEGORIES if self.scores[cat] is not None)
+
+    def has_upper_bonus(self):
+        # Only award bonus if all upper categories are filled
+        if all(self.scores[cat] is not None for cat in UPPER_CATEGORIES):
+            return self.upper_section_total() >= UPPER_BONUS_THRESHOLD
+        return False
+
     def total_score(self):
-        return sum(score for score in self.scores.values() if score is not None) 
+        total = sum(score for score in self.scores.values() if score is not None)
+        if self.has_upper_bonus():
+            total += UPPER_BONUS_SCORE
+        return total 

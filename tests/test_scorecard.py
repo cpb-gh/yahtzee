@@ -1,4 +1,4 @@
-from scorecard import Scorecard, ALL_CATEGORIES
+from scorecard import Scorecard, ALL_CATEGORIES, UPPER_CATEGORIES, UPPER_BONUS_SCORE
 from yahtzee import calculate_score
 
 def test_scorecard_initialization():
@@ -75,3 +75,34 @@ def test_yahtzee():
 def test_chance():
     assert calculate_score("Chance", [1, 2, 3, 4, 5]) == 15
     assert calculate_score("Chance", [6, 6, 6, 6, 6]) == 30 
+
+def test_upper_section_bonus_awarded():
+    sc = Scorecard()
+    # Fill upper section with values that sum to 63
+    for cat, val in zip(UPPER_CATEGORIES, [10, 10, 10, 11, 11, 11]):
+        sc.set_score(cat, val)
+    # Fill one lower section to allow total_score to work
+    sc.set_score("Chance", 0)
+    assert sc.upper_section_total() == 63
+    assert sc.has_upper_bonus() is True
+    assert sc.total_score() == 63 + 0 + UPPER_BONUS_SCORE
+
+def test_upper_section_bonus_not_awarded():
+    sc = Scorecard()
+    # Fill upper section with values that sum to 62
+    for cat, val in zip(UPPER_CATEGORIES, [10, 10, 10, 10, 11, 11]):
+        sc.set_score(cat, val)
+    sc.set_score("Chance", 0)
+    assert sc.upper_section_total() == 62
+    assert sc.has_upper_bonus() is False
+    assert sc.total_score() == 62 + 0
+
+def test_upper_section_bonus_not_awarded_if_incomplete():
+    sc = Scorecard()
+    # Fill only some upper section categories
+    for cat, val in zip(UPPER_CATEGORIES[:3], [21, 21, 21]):
+        sc.set_score(cat, val)
+    sc.set_score("Chance", 0)
+    assert sc.upper_section_total() == 63
+    assert sc.has_upper_bonus() is False
+    assert sc.total_score() == 63 + 0 
